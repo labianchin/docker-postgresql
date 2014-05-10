@@ -6,6 +6,13 @@ DATADIR=/data
 mkdir -p $DATADIR
 
 if [ ! "$(ls -A $DATADIR)" ]; then
+    USER=${USER:-docker}
+    PASS=${PASS:-docker}
+    DB=${DB:-docker}
+    echo "POSTGRES_USER=$USER"
+    echo "POSTGRES_PASS=$PASS"
+    echo "POSTGRES_DB=$DB"
+    echo "POSTGRES_DATA_DIR=$DATADIR"
 
     echo "Initializing postgresql database cluster at $DATADIR ..."
 
@@ -17,6 +24,6 @@ if [ ! "$(ls -A $DATADIR)" ]; then
     # Ensure right permissions on DATADIR
     chmod -R 700 $DATADIR
 
-    su postgres -c "/usr/lib/postgresql/9.3/bin/postgres --single -c config-file=/etc/postgresql/9.3/main/postgresql.conf <<< 'CREATE USER docker WITH SUPERUSER PASSWORD '\''docker'\'';'"
-    su postgres -c "/usr/lib/postgresql/9.3/bin/postgres --single -c config-file=/etc/postgresql/9.3/main/postgresql.conf <<< 'CREATE DATABASE docker OWNER docker;'"
+    su postgres -c "/usr/lib/postgresql/9.3/bin/postgres --single -c config-file=/etc/postgresql/9.3/main/postgresql.conf <<< 'CREATE USER $USER WITH SUPERUSER PASSWORD '\''$PASS'\'';'"
+    su postgres -c "/usr/lib/postgresql/9.3/bin/postgres --single -c config-file=/etc/postgresql/9.3/main/postgresql.conf <<< 'CREATE DATABASE $DB OWNER $USER;'"
 fi
