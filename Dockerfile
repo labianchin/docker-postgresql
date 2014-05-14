@@ -2,14 +2,13 @@
 # RUN-USING:		$ docker run -i -t -v $(pwd)/volumes/data:/data -v $(pwd)/volumes/log:/var/log --name thesql -p 5432:5432 -d labianchin/postgresql
 # DEBUG-USING:		$ docker run -i -t -v $(pwd)/volumes/data:/data -v $(pwd)/volumes/log:/var/log --name thesql -p 5432:5432 --rm labianchin/postgresql /bin/bash
 
-FROM phusion/baseimage:0.9.9
+FROM phusion/baseimage:0.9.10
 
 MAINTAINER Luis Bianchin <labianchin@l433.com>
 
 #  Installs postgresql
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8 && \
     echo "deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
-    sed -i -e"s/^.*universe.*$//g" -e"s/^.*multiverse.*//g" /etc/apt/sources.list && \
     apt-get -q update && \ 
     DEBIAN_FRONTEND=noninteractive apt-get -yq install postgresql-9.3 && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
