@@ -2,7 +2,7 @@
 # RUN-USING:		$ docker run -it -v $(pwd)/volumes/data:/data -v $(pwd)/volumes/log:/var/log --name thesql -p 5432:5432 -d labianchin/postgresql
 # DEBUG-USING:		$ docker run -it --rm labianchin/postgresql /bin/bash
 
-FROM phusion/baseimage:0.9.10
+FROM phusion/baseimage:0.9.11
 
 MAINTAINER Luis Bianchin <labianchin@l433.com>
 
