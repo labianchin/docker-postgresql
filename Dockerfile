@@ -1,6 +1,6 @@
 # BUILD-USING:		$ docker build -t labianchin/postgresql .
-# RUN-USING:		$ docker run -i -t -v $(pwd)/volumes/data:/data -v $(pwd)/volumes/log:/var/log --name thesql -p 5432:5432 -d labianchin/postgresql
-# DEBUG-USING:		$ docker run -i -t -v $(pwd)/volumes/data:/data -v $(pwd)/volumes/log:/var/log --name thesql -p 5432:5432 --rm labianchin/postgresql /bin/bash
+# RUN-USING:		$ docker run -it -v $(pwd)/volumes/data:/data -v $(pwd)/volumes/log:/var/log --name thesql -p 5432:5432 -d labianchin/postgresql
+# DEBUG-USING:		$ docker run -it --rm labianchin/postgresql /bin/bash
 
 FROM phusion/baseimage:0.9.10
 
