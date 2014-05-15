@@ -10,9 +10,9 @@ MAINTAINER Luis Bianchin <labianchin@l433.com>
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8 && \
     echo "deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
     apt-get -q update && \ 
-    DEBIAN_FRONTEND=noninteractive apt-get -yq install postgresql-9.3 libpq-dev && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-    echo -n en_US.UTF-8 > /etc/container_environment/LANG
+    DEBIAN_FRONTEND=noninteractive apt-get -yq install postgresql-9.3 && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN echo -n en_US.UTF-8 > /etc/container_environment/LANG
 
 # Cofigure the database to use data dir
 # Postgresql configuration here, we might want to change something here
@@ -28,7 +28,8 @@ ADD syslog-ng.postgresql.conf /etc/syslog-ng/conf.d/postgresql.conf
 ADD postgresql_bootstrap.sh /etc/my_init.d/
 # Adds postgresql start script
 ADD postgresql.sh /etc/service/postgresql/run
-RUN chmod +x /etc/service/postgresql/run /etc/my_init.d/postgresql_bootstrap.sh
+RUN chmod +x /etc/service/postgresql/run
+RUN chmod +x /etc/my_init.d/postgresql_bootstrap.sh
 
 # Decouple data from container
 VOLUME ["/data", "/var/log/"]

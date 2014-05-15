@@ -18,7 +18,6 @@ docker build -t labianchin/postgresql .
 
 ```
 docker run -i -t -v $(pwd)/volumes/data:/data -v $(pwd)/volumes/log:/var/log --name thesql -p 5432:5432 -d labianchin/postgresql
-
 PG_PASSWORD=docker psql -h localhost -U docker docker
 ```
 
