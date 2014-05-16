@@ -1,12 +1,6 @@
-# BUILD-USING:		$ docker build -t labianchin/postgresql .
-# RUN-USING:		$ docker run -it -v $(pwd)/volumes/data:/data -v $(pwd)/volumes/log:/var/log --name thesql -p 5432:5432 -d labianchin/postgresql
-# DEBUG-USING:		$ docker run -it --rm labianchin/postgresql /bin/bash
 FROM phusion/baseimage:0.9.9
 
-MAINTAINER Luis Bianchin <labianchin@l433.com>
-
 #  Installs postgresql
-
 RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
 
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main" > /etc/apt/sources.list.d/pgdg.list
