@@ -6,12 +6,16 @@ FROM phusion/baseimage:0.9.10
 
 MAINTAINER Luis Bianchin <labianchin@l433.com>
 
+RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
+
 #  Installs postgresql
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main" > /etc/apt/sources.list.d/pgdg.list
-RUN apt-get -q update
-RUN DEBIAN_FRONTEND=noninteractive apt-get -yq install postgresql-9.3 
-#apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get update
+RUN apt-get -qq install curl
+RUN curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+RUN apt-get update &&\
+    apt-get -qq install postgresql-9.3 postgresql-contrib-9.3 &&\
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN echo -n en_US.UTF-8 > /etc/container_environment/LANG
 
 # Cofigure the database to use data dir
