@@ -11,8 +11,8 @@ RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
 
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 RUN apt-get update
-RUN apt-get -qq install curl
-RUN curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+RUN apt-get -qq install wget ca-certificates
+RUN wget --quiet --no-check-certificate -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 RUN apt-get update &&\
     apt-get -qq install postgresql-9.3 postgresql-contrib-9.3 &&\
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
