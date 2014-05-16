@@ -2,11 +2,9 @@
 # RUN-USING:		$ docker run -it -v $(pwd)/volumes/data:/data -v $(pwd)/volumes/log:/var/log --name thesql -p 5432:5432 -d labianchin/postgresql
 # DEBUG-USING:		$ docker run -it --rm labianchin/postgresql /bin/bash
 
-FROM phusion/baseimage:0.9.6
+FROM ubuntu:12:04
 
 MAINTAINER Luis Bianchin <labianchin@l433.com>
-
-RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
 
 #  Installs postgresql
 RUN apt-get -q update
@@ -16,7 +14,6 @@ RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main" > /etc
 RUN apt-get -q update &&\
     apt-get -qq install postgresql-9.3 postgresql-contrib-9.3 &&\
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-RUN echo -n en_US.UTF-8 > /etc/container_environment/LANG
 
 # Cofigure the database to use data dir
 # Postgresql configuration here, we might want to change something here
